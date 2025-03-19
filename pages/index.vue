@@ -6,7 +6,14 @@
 
     <div class="card">
       <div class="card-header">
-        <h2>LINE BOT 金鑰設定 🔑</h2>
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24">
+            <path
+              d="M12.65 10A5.99 5.99 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 0 0 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+            />
+          </svg>
+          LINE BOT 金鑰設定
+        </h2>
       </div>
       <div class="card-content">
         <div class="key-management">
@@ -47,7 +54,14 @@
 
     <div class="card">
       <div class="card-header">
-        <h2>Webhook 設定 🌐</h2>
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24">
+            <path
+              d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 0 1 5.08 16zm2.95-8H5.08a8.03 8.03 0 0 1 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"
+            />
+          </svg>
+          Webhook 設定
+        </h2>
       </div>
       <div class="card-content">
         <div class="input-group">
@@ -63,46 +77,105 @@
     </div>
 
     <div class="button-group">
-      <button class="btn save" @click="saveSettings">儲存設定 💾</button>
+      <button class="btn save" @click="saveSettings">
+        <svg class="btn-icon" viewBox="0 0 24 24">
+          <path
+            d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+          />
+        </svg>
+        儲存設定
+      </button>
       <button
         class="btn delete"
         @click="deleteSelectedKey"
         :disabled="!selectedKey"
       >
-        刪除金鑰 🗑️
+        <svg class="btn-icon" viewBox="0 0 24 24">
+          <path
+            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+          />
+        </svg>
+        刪除金鑰
       </button>
       <button
         class="btn update"
         @click="updateWebhook"
         :disabled="!accessToken || !webhookUrl"
       >
-        更新 Webhook URL 🔄
+        <svg class="btn-icon" viewBox="0 0 24 24">
+          <path
+            d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+          />
+        </svg>
+        更新 Webhook URL
       </button>
       <button
         class="btn check"
         @click="checkWebhookStatus"
         :disabled="!accessToken"
       >
-        檢查 Webhook 狀態 🔍
+        <svg class="btn-icon" viewBox="0 0 24 24">
+          <path
+            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          />
+        </svg>
+        檢查 Webhook 狀態
       </button>
     </div>
 
     <div class="card log-card">
       <div class="card-header">
-        <h2>狀態 📊</h2>
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24">
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+            />
+          </svg>
+          狀態
+        </h2>
       </div>
       <div class="log-content">
         <div v-for="(log, index) in logs" :key="index" class="log-item">
-          <div class="log-icon" v-if="log.type === 'success'">✅</div>
-          <div class="log-icon" v-else-if="log.type === 'error'">❌</div>
-          <div class="log-icon" v-else-if="log.type === 'info'">📝</div>
+          <div class="log-icon" v-if="log.type === 'success'">
+            <svg class="status-icon success" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+          </div>
+          <div class="log-icon" v-else-if="log.type === 'error'">
+            <svg class="status-icon error" viewBox="0 0 24 24">
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+            </svg>
+          </div>
+          <div class="log-icon" v-else-if="log.type === 'info'">
+            <svg class="status-icon info" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+          </div>
           <div class="log-message">{{ log.message }}</div>
         </div>
         <div v-if="webhookStatus" class="webhook-status">
           <div>目前 Webhook 狀態:</div>
           <div>URL: {{ webhookStatus.url }}</div>
           <div>
-            狀態: {{ webhookStatus.active ? '已啟用 ✅' : '未啟用 ❌' }}
+            狀態:
+            <span v-if="webhookStatus.active">
+              已啟用
+              <svg class="status-icon success inline" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+            </span>
+            <span v-else>
+              未啟用
+              <svg class="status-icon error inline" viewBox="0 0 24 24">
+                <path
+                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                />
+              </svg>
+            </span>
           </div>
         </div>
       </div>
@@ -367,6 +440,8 @@ h1 {
   margin: 0;
   font-size: 18px;
   color: #333;
+  display: flex;
+  align-items: center;
 }
 
 .card-content {
@@ -506,5 +581,47 @@ h1 {
   .key-management {
     flex-direction: column;
   }
+}
+
+/* 添加新的圖標相關樣式 */
+.icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+.btn-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+.status-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.status-icon.success {
+  fill: #4caf50;
+}
+
+.status-icon.error {
+  fill: #f44336;
+}
+
+.status-icon.info {
+  fill: #2196f3;
+}
+
+.status-icon.inline {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-bottom: 2px;
 }
 </style>
