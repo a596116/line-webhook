@@ -54,6 +54,12 @@
           <p>1. 在「完整 Webhook URL」欄位輸入新的網址</p>
           <p>2. 點擊「更新 Webhook URL」按鈕</p>
           <p>3. 系統將更新設定並顯示結果</p>
+
+          <h4>資料安全與隱私</h4>
+          <p>• 您的所有金鑰設定僅保存在本地瀏覽器中</p>
+          <p>• 所有資料都存儲在 localStorage，不會上傳至任何伺服器</p>
+          <p>• 您可以放心測試使用，無需擔心金鑰外洩</p>
+          <p>• 即使關閉瀏覽器，設定仍會保留在本地裝置上</p>
         </div>
       </div>
     </div>
@@ -170,7 +176,31 @@
     </div>
 
     <div class="button-group">
-      <button class="btn save" @click="saveSettings">
+      <button
+        class="btn primary"
+        @click="checkWebhookStatus"
+        :disabled="!accessToken"
+      >
+        <svg class="btn-icon" viewBox="0 0 24 24">
+          <path
+            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          />
+        </svg>
+        檢查Webhook狀態
+      </button>
+      <button
+        class="btn secondary"
+        @click="updateWebhook"
+        :disabled="!accessToken || !webhookUrl"
+      >
+        <svg class="btn-icon" viewBox="0 0 24 24">
+          <path
+            d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+          />
+        </svg>
+        更新Webhook URL
+      </button>
+      <button class="btn accent" @click="saveSettings" :disabled="!accessToken">
         <svg class="btn-icon" viewBox="0 0 24 24">
           <path
             d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
@@ -189,30 +219,6 @@
           />
         </svg>
         刪除金鑰
-      </button>
-      <button
-        class="btn update"
-        @click="updateWebhook"
-        :disabled="!accessToken || !webhookUrl"
-      >
-        <svg class="btn-icon" viewBox="0 0 24 24">
-          <path
-            d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
-          />
-        </svg>
-        更新 Webhook URL
-      </button>
-      <button
-        class="btn check"
-        @click="checkWebhookStatus"
-        :disabled="!accessToken"
-      >
-        <svg class="btn-icon" viewBox="0 0 24 24">
-          <path
-            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-          />
-        </svg>
-        檢查 Webhook 狀態
       </button>
     </div>
 
@@ -662,24 +668,40 @@ h1 {
   cursor: not-allowed;
 }
 
-.save {
-  background-color: #4caf50;
+.primary {
+  background-color: #4a5d80;
   color: white;
+}
+
+.primary:hover {
+  background-color: #5a6d90;
+}
+
+.secondary {
+  background-color: #6a549d;
+  color: white;
+}
+
+.secondary:hover {
+  background-color: #7a64ad;
+}
+
+.accent {
+  background-color: #2a8c7d;
+  color: white;
+}
+
+.accent:hover {
+  background-color: #3a9c8d;
 }
 
 .delete {
-  background-color: #f44336;
+  background-color: #d64336;
   color: white;
 }
 
-.update {
-  background-color: #2196f3;
-  color: white;
-}
-
-.check {
-  background-color: #ff9800;
-  color: white;
+.delete:hover {
+  background-color: #e65346;
 }
 
 .log-card {
