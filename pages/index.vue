@@ -76,6 +76,45 @@
       </div>
     </div>
 
+    <!-- 將 Webhook 狀態區塊移到這裡 -->
+    <div class="card webhook-status-card" v-if="webhookStatus">
+      <div class="card-header">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24">
+            <path
+              d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"
+            />
+          </svg>
+          Webhook 狀態
+        </h2>
+      </div>
+      <div class="card-content webhook-status-content">
+        <div class="webhook-status-item">
+          <div class="status-label">URL:</div>
+          <div class="status-value">{{ webhookStatus.url }}</div>
+        </div>
+        <div class="webhook-status-item">
+          <div class="status-label">狀態:</div>
+          <div class="status-value">
+            <span v-if="webhookStatus.active" class="status-active">
+              已啟用
+              <svg class="status-icon success inline" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+            </span>
+            <span v-else class="status-inactive">
+              未啟用
+              <svg class="status-icon error inline" viewBox="0 0 24 24">
+                <path
+                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="button-group">
       <button class="btn save" @click="saveSettings">
         <svg class="btn-icon" viewBox="0 0 24 24">
@@ -157,27 +196,6 @@
           </div>
           <div class="log-message">{{ log.message }}</div>
         </div>
-        <div v-if="webhookStatus" class="webhook-status">
-          <div>目前 Webhook 狀態:</div>
-          <div>URL: {{ webhookStatus.url }}</div>
-          <div>
-            狀態:
-            <span v-if="webhookStatus.active">
-              已啟用
-              <svg class="status-icon success inline" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-            </span>
-            <span v-else>
-              未啟用
-              <svg class="status-icon error inline" viewBox="0 0 24 24">
-                <path
-                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -185,6 +203,16 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+
+useSeoMeta({
+  title: 'LINE BOT Webhook 更新工具',
+  description: 'LINE BOT Webhook 更新工具',
+  ogTitle: 'LINE BOT Webhook 更新工具',
+  ogDescription: 'LINE BOT Webhook 更新工具',
+  ogImage: '/webhook.png',
+  ogUrl: 'https://linebotwebhook.vercel.app/',
+  ogType: 'website',
+})
 
 // 狀態管理
 const accessToken = ref('')
@@ -311,7 +339,7 @@ const checkWebhookStatus = async () => {
     }
 
     addLog('success', '成功檢查 Webhook 狀態')
-  } catch (error) {
+  } catch (error: any) {
     addLog('error', `檢查 Webhook 狀態時發生錯誤: ${error.message}`)
   }
 }
@@ -353,7 +381,7 @@ const updateWebhook = async () => {
     }
 
     addLog('success', `Webhook URL 已更新為: ${webhookUrl.value}`)
-  } catch (error) {
+  } catch (error: any) {
     addLog('error', `更新 Webhook URL 時發生錯誤: ${error.message}`)
   }
 }
@@ -566,11 +594,45 @@ h1 {
   flex: 1;
 }
 
-.webhook-status {
-  margin-top: 15px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
+.webhook-status-card {
+  margin-top: 20px;
+  background-color: #f5f5f5;
+}
+
+.webhook-status-content {
+  padding: 15px;
+}
+
+.webhook-status-item {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.status-label {
+  font-weight: bold;
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.status-value {
+  flex: 1;
+  word-break: break-all;
+}
+
+.status-active {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.status-inactive {
+  color: #f44336;
+  font-weight: bold;
+}
+
+/* 確保原有的 webhook-status 類不衝突 */
+.log-content .webhook-status {
+  display: none;
 }
 
 .key-selector-group {
