@@ -264,7 +264,7 @@ useSeoMeta({
   ogTitle: 'LINE BOT Webhook 更新工具',
   ogDescription: 'LINE BOT Webhook 更新工具',
   ogImage: '/webhook.png',
-  ogUrl: 'https://linebotwebhook.vercel.app/',
+  ogUrl: 'https://linewebhook.vercel.app/',
   ogType: 'website',
 })
 
