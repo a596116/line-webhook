@@ -1,7 +1,61 @@
 <template>
   <div class="container">
     <div class="header">
-      <h1>LINE BOT Webhook 更新工具</h1>
+      <h1>
+        LINE BOT Webhook 更新工具
+        <div class="title-actions">
+          <button class="help-btn" @click="toggleHelpPopup">
+            <svg class="help-icon" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+              />
+            </svg>
+          </button>
+          <a
+            href="https://github.com/a596116/line-webhook"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="github-link"
+          >
+            <svg class="github-icon" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+              />
+            </svg>
+          </a>
+        </div>
+      </h1>
+    </div>
+
+    <!-- 幫助彈窗 -->
+    <div v-if="showHelpPopup" class="help-popup">
+      <div class="help-popup-content">
+        <div class="help-popup-header">
+          <h3>如何使用 LINE BOT Webhook 更新工具</h3>
+          <button class="close-btn" @click="toggleHelpPopup">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="help-popup-body">
+          <h4>設定與保存金鑰</h4>
+          <p>1. 在「Channel Access Token」欄位輸入您的 token</p>
+          <p>2. 填寫金鑰名稱（如未填寫，系統將自動命名）</p>
+          <p>3. 點擊「儲存設定」按鈕保存您的金鑰</p>
+
+          <h4>檢查 Webhook 狀態</h4>
+          <p>1. 選擇已保存的金鑰</p>
+          <p>2. 點擊「檢查 Webhook 狀態」按鈕</p>
+
+          <h4>更新 Webhook URL</h4>
+          <p>1. 在「完整 Webhook URL」欄位輸入新的網址</p>
+          <p>2. 點擊「更新 Webhook URL」按鈕</p>
+          <p>3. 系統將更新設定並顯示結果</p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -70,7 +124,7 @@
             id="webhookUrl"
             v-model="webhookUrl"
             type="text"
-            placeholder="例如: https://example.ngrok-free.app/api/LineLLM"
+            placeholder="例如: https://your-app-name.vercel.app/api/LineWebhook"
           />
         </div>
       </div>
@@ -222,6 +276,7 @@ const selectedKey = ref('')
 const savedKeys = ref<string[]>([])
 const logs = ref<{ type: 'success' | 'error' | 'info'; message: string }[]>([])
 const webhookStatus = ref<{ url: string; active: boolean } | null>(null)
+const showHelpPopup = ref(false)
 
 // 計算完整的 Webhook URL
 const fullWebhookUrl = computed(() => {
@@ -430,6 +485,11 @@ onMounted(() => {
   // 載入金鑰列表
   loadSavedKeys()
 })
+
+// 打開/關閉幫助彈窗
+const toggleHelpPopup = () => {
+  showHelpPopup.value = !showHelpPopup.value
+}
 </script>
 
 <style scoped>
@@ -443,11 +503,66 @@ onMounted(() => {
 .header {
   text-align: center;
   margin-bottom: 20px;
+  position: relative;
 }
 
 h1 {
   font-size: 24px;
   color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-actions {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.help-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-icon {
+  width: 24px;
+  height: 24px;
+  fill: #555;
+  transition: fill 0.3s;
+}
+
+.help-btn:hover .help-icon {
+  fill: #2196f3;
+}
+
+.github-link {
+  display: inline-flex;
+  vertical-align: middle;
+  color: #333;
+  transition: color 0.3s;
+  align-items: center;
+}
+
+.github-link:hover {
+  color: #2196f3;
+}
+
+.github-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  vertical-align: text-top;
+  position: relative;
+  top: -1px;
 }
 
 .card {
@@ -685,5 +800,72 @@ h1 {
   height: 16px;
   vertical-align: middle;
   margin-bottom: 2px;
+}
+
+.help-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.help-popup-content {
+  background-color: white;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.help-popup-header {
+  padding: 15px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.help-popup-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #555;
+}
+
+.help-popup-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.help-popup-body h4 {
+  margin-top: 15px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.help-popup-body p {
+  margin: 5px 0;
+  color: #555;
 }
 </style>
